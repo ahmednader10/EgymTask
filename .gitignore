@@ -1,0 +1,21 @@
+### Intellij ###
+
+# User-specific stuff:
+.idea/workspace.xml
+
+# Sensitive or high-churn files:
+.idea/uiDesigner.xml
+
+/out/
+
+# *.iml
+# modules.xml
+
+### Java ###
+*.class
+
+
+# Package Files #
+*.jar
+*.war
+*.ear
