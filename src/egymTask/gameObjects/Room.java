@@ -33,6 +33,10 @@ public class Room {
         this.directions = directions;
     }
 
+    public void addDirection(Direction d) {
+        this.directions.add(d);
+    }
+
     public List<CollectibleObject> getObjects() {
         return Objects;
     }
@@ -43,5 +47,27 @@ public class Room {
 
     public void addObject(CollectibleObject o) {
         this.Objects.add(o);
+    }
+
+    public String toString() {
+        String items = "";
+        for(int i = 0; i < this.Objects.size(); i++) {
+            if(i == Objects.size() -1) {
+                items += Objects.get(i).getName();
+            }
+            else {
+                items += Objects.get(i).getName() + ", ";
+            }
+        }
+       /* String direction = " Directions: ";
+        for(int j = 0; j < this.directions.size(); j++) {
+            if(j == directions.size() -1) {
+                direction += directions.get(j).getCd()+" :" + directions.get(j).getId();
+            }
+            else {
+                direction += directions.get(j).getCd()+" :" + directions.get(j).getId()+ ", ";
+            }
+        }*/
+        return "ID: "+ this.id+" Room: "+ this.name+" Items: "+items;
     }
 }

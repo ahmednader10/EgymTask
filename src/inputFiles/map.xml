@@ -1,6 +1,6 @@
 <map>
    <room id="1" name="Stairway" east="2"/>
-   <room id="2" name="Hallway 1" north="4" south="7" west="1" east="3"/>
+   <room id="2" name="Hallway 1" north="4" south="7" west="1" east="3">
        <object name="Scarf"/>
        <object name="Umbrella"/>
    </room>

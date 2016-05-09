@@ -13,4 +13,12 @@ public class Map {
     public Room getRoom(int id) {
         return rooms.get(id -1);
     }
+
+    public String toString() {
+        String map = "";
+        for(int i = 0; i < rooms.size(); i++) {
+            map+=rooms.get(i)+"\n";
+        }
+        return map;
+    }
 }
