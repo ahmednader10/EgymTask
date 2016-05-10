@@ -8,6 +8,7 @@ public class Room {
     private String name;
     private List<Direction> directions = new ArrayList<>();
     private List<CollectibleObject> Objects= new ArrayList<>();
+    private boolean visited = false;
 
     public int getId() {
         return id;
@@ -37,6 +38,29 @@ public class Room {
         this.directions.add(d);
     }
 
+    public boolean hasDirections() {
+        return !this.directions.isEmpty();
+    }
+
+    public int getRoomFromDirection(CardinalDirection direction, Map map) {
+        for(int i = 0; i < this.directions.size(); i++) {
+            if(this.directions.get(i).getCd() == direction) {
+                if(map.hasRoom(this.directions.get(i).getId())) {
+                    return this.directions.get(i).getId();
+                }
+            }
+        }
+        return -1;
+    }
+
+    public boolean isVisited() {
+        return visited;
+    }
+
+    public void setVisited(boolean visited) {
+        this.visited = visited;
+    }
+
     public List<CollectibleObject> getObjects() {
         return Objects;
     }
@@ -47,6 +71,14 @@ public class Room {
 
     public void addObject(CollectibleObject o) {
         this.Objects.add(o);
+    }
+
+    public boolean hasObject(String name) {
+        for(int i = 0; i < this.Objects.size(); i++) {
+            if(Objects.get(i).getName().equalsIgnoreCase(name))
+                return true;
+        }
+        return false;
     }
 
     public String toString() {

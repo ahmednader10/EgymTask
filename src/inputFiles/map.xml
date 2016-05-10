@@ -14,8 +14,8 @@
    <room id="6" name="Bath Room" north="3">
        <object name="Soap"/>
    </room>
-   <room id="7" name="Living Room" north="2" east="8"/>
-   <room id="8" name="Bed Room" west="7" north="5">
+   <room id="7" name="Living Room" north="2"/>
+   <room id="8" name="Bed Room"  north="5">
        <object name="Pillow"/>
    </room>
 </map>
