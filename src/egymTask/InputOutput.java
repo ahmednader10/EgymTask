@@ -74,9 +74,9 @@ public class InputOutput {
         }
     }
 
-    //takes as parameter the path to the input file to be parsed, and calls a method to collect a
+    //takes as parameter the path to the input file to be parsed, and calls a method to calculate a
     // valid route according to the input specified in the text file
-    public static void readTextFile(String file) throws IOException {
+    public static String readTextFile(String file) throws IOException {
         FileReader input = new FileReader(file);
         BufferedReader bufRead = new BufferedReader(input);
         String startindex = bufRead.readLine();
@@ -86,27 +86,28 @@ public class InputOutput {
         while ((object = bufRead.readLine()) != null) {
             itemsToCollect.add(object);
         }
-        calculateRoute(Startpoint);
+        return calculateRoute(Startpoint);
     }
 
     // A dfs approach to span all the rooms on the map by setting a boolean variable as true when visiting a room
     // and accordingly if a room is visited before then it's only printed to indicate that the player passed by it
     // otherwise if it's not visited then search for the itemsToCollect inside it.
-    public static void calculateRoute(int start){
+    public static String calculateRoute(int start){
         Stack<Integer> st = new Stack<Integer>();
         st.push(start);
+        String route = "";
         while(!st.isEmpty()){
             if(itemsToCollect.isEmpty()) {
                 break;
             }
             Room r  = map.getRoom(st.pop());
             if(r.isVisited()) {
-                System.out.println(r);
+                route += r+"\n";
             }
             else {
                 searchRoom(r.getId());
                 r.setVisited(true);
-                System.out.println(r);
+                route += r+"\n";
                 Stack<Integer> auxStack = new Stack<Integer>();
                 if(map.getRoom(r.getId()).hasDirections()) {
                     for (Direction d : map.getRoom(r.getId()).getDirections()) {
@@ -118,6 +119,7 @@ public class InputOutput {
                 }
             }
         }
+        return route;
     }
 
     //takes as input a room id and searches this room for the elements left in the itemsToCollect ArrayList
@@ -134,6 +136,6 @@ public class InputOutput {
 
     public static void main(String[]args) throws ParserConfigurationException, SAXException, IOException {
         readMap();
-        readTextFile("src/inputFiles/config1.txt");
+        System.out.println(readTextFile("src/inputFiles/config1.txt"));
     }
 }
