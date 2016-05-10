@@ -76,40 +76,15 @@ public class InputOutput {
         FileReader input = new FileReader(file);
         BufferedReader bufRead = new BufferedReader(input);
         String startindex = bufRead.readLine();
-        int Startpoint =Integer.parseInt(startindex);
+        int Startpoint = Integer.parseInt(startindex);
         String object;
         while ((object = bufRead.readLine()) != null) {
             itemsToCollect.add(object);
         }
-        //calculateRoute(Startpoint);
-        dfs_iterative(Startpoint);
+        calculateRoute(Startpoint);
     }
 
-    public static void calculateRoute(int Start) {
-        Queue<Room> rooms = new LinkedList<>();
-        rooms.add(map.getRoom(Start));
-        while (!itemsToCollect.isEmpty()) {
-            Room r = rooms.remove();
-            searchRoom(r.getId());
-            System.out.println(r);
-            for(int i = 0; i < r.getDirections().size(); i++) {
-                rooms.add(map.getRoom(r.getDirections().get(i).getId()));
-            }
-        }
-    }
-
-    // recursive dfs
-    private static void dfs_rec(List<Room> rooms, int start){
-        if (itemsToCollect.isEmpty())
-            return;
-        System.out.println(rooms.get(start));
-        searchRoom(start);
-        for(Direction d : rooms.get(start).getDirections()){
-            dfs_rec(rooms, d.getId());
-        }
-    }
-
-    public static void dfs_iterative(int start){
+    public static void calculateRoute(int start){
         Stack<Integer> st = new Stack<Integer>();
         st.push(start);
         while(!st.isEmpty()){
@@ -126,8 +101,7 @@ public class InputOutput {
                 System.out.println(r);
                 Stack<Integer> auxStack = new Stack<Integer>();
                 for (Direction d : map.getRoom(r.getId()).getDirections()) {
-                   // if(!map.getRoom(d.getId()).isVisited())
-                        auxStack.push(d.getId());
+                    auxStack.push(d.getId());
                 }
                 while (!auxStack.isEmpty()) {
                     st.push(auxStack.pop());
@@ -136,45 +110,19 @@ public class InputOutput {
         }
     }
 
-    /*public static String calculateRoute(int Start, List<String> itemsToCollect) {
-
-        if(itemsToCollect.isEmpty())
-            return "";
-        if(Start == -1)
-            return "";
-        //System.out.println(Start);
-        Room current = map.getRoom(Start);
-        System.out.println(current);
-        map.removeRoom(current.getId());
-        String room = "";
-        for (int i = 0; i < itemsToCollect.size(); i++) {
-            if(current.hasObject(itemsToCollect.get(i))) {
-                itemsToCollect.remove(i);
-                // System.out.println(r);
-                room = current.toString();
-            }
-        }
-        return room+calculateRoute(current.getRoomFromDirection(CardinalDirection.north, map), itemsToCollect)
-                +calculateRoute(current.getRoomFromDirection(CardinalDirection.east, map), itemsToCollect)+
-                calculateRoute(current.getRoomFromDirection(CardinalDirection.west, map), itemsToCollect)+
-                calculateRoute(current.getRoomFromDirection(CardinalDirection.south, map), itemsToCollect);
-    }*/
-
     public static void  searchRoom(int id) {
         Room r = map.getRoom(id);
         for (int i = 0; i < itemsToCollect.size(); i++) {
 
             if(r.hasObject(itemsToCollect.get(i))) {
-                //System.out.println(itemsToCollect.get(i));
                 itemsToCollect.remove(i);
                 i--;
             }
-
         }
     }
 
     public static void main(String[]args) throws ParserConfigurationException, SAXException, IOException {
         readMap();
-        readTextFile("src/inputFiles/config1.txt");
+        readTextFile("src/inputFiles/config2.txt");
     }
 }
