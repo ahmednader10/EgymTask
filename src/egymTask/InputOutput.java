@@ -16,8 +16,10 @@ import java.util.*;
 
 public class InputOutput {
     static Map map = new Map();
+    //items required to collect
     static List<String> itemsToCollect = new ArrayList<>();
 
+    //method to parse map.xml file and build a map object accordingly
     public static void readMap() throws IOException, SAXException, ParserConfigurationException {
         File fXmlFile = new File("src/inputFiles/map.xml");
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -72,10 +74,13 @@ public class InputOutput {
         }
     }
 
+    //takes as parameter the path to the input file to be parsed, and calls a method to collect a
+    // valid route according to the input specified in the text file
     public static void readTextFile(String file) throws IOException {
         FileReader input = new FileReader(file);
         BufferedReader bufRead = new BufferedReader(input);
         String startindex = bufRead.readLine();
+        //index of the start room
         int Startpoint = Integer.parseInt(startindex);
         String object;
         while ((object = bufRead.readLine()) != null) {
@@ -84,6 +89,9 @@ public class InputOutput {
         calculateRoute(Startpoint);
     }
 
+    // A dfs approach to span all the rooms on the map by setting a boolean variable as true when visiting a room
+    // and accordingly if a room is visited before then it's only printed to indicate that the player passed by it
+    // otherwise if it's not visited then search for the itemsToCollect inside it.
     public static void calculateRoute(int start){
         Stack<Integer> st = new Stack<Integer>();
         st.push(start);
@@ -100,16 +108,19 @@ public class InputOutput {
                 r.setVisited(true);
                 System.out.println(r);
                 Stack<Integer> auxStack = new Stack<Integer>();
-                for (Direction d : map.getRoom(r.getId()).getDirections()) {
-                    auxStack.push(d.getId());
-                }
-                while (!auxStack.isEmpty()) {
-                    st.push(auxStack.pop());
+                if(map.getRoom(r.getId()).hasDirections()) {
+                    for (Direction d : map.getRoom(r.getId()).getDirections()) {
+                        auxStack.push(d.getId());
+                    }
+                    while (!auxStack.isEmpty()) {
+                        st.push(auxStack.pop());
+                    }
                 }
             }
         }
     }
 
+    //takes as input a room id and searches this room for the elements left in the itemsToCollect ArrayList
     public static void  searchRoom(int id) {
         Room r = map.getRoom(id);
         for (int i = 0; i < itemsToCollect.size(); i++) {
@@ -123,6 +134,6 @@ public class InputOutput {
 
     public static void main(String[]args) throws ParserConfigurationException, SAXException, IOException {
         readMap();
-        readTextFile("src/inputFiles/config2.txt");
+        readTextFile("src/inputFiles/config1.txt");
     }
 }

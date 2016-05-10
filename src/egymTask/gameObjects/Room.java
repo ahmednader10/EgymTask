@@ -38,21 +38,12 @@ public class Room {
         this.directions.add(d);
     }
 
+    //check if this room leads to other rooms
     public boolean hasDirections() {
         return !this.directions.isEmpty();
     }
 
-    public int getRoomFromDirection(CardinalDirection direction, Map map) {
-        for(int i = 0; i < this.directions.size(); i++) {
-            if(this.directions.get(i).getCd() == direction) {
-                if(map.hasRoom(this.directions.get(i).getId())) {
-                    return this.directions.get(i).getId();
-                }
-            }
-        }
-        return -1;
-    }
-
+    //boolean flag to refer if a room is visited
     public boolean isVisited() {
         return visited;
     }
@@ -73,6 +64,7 @@ public class Room {
         this.Objects.add(o);
     }
 
+    //check if a room has objects to be collected
     public boolean hasObject(String name) {
         for(int i = 0; i < this.Objects.size(); i++) {
             if(Objects.get(i).getName().equalsIgnoreCase(name))
@@ -91,15 +83,6 @@ public class Room {
                 items += Objects.get(i).getName() + ", ";
             }
         }
-       /* String direction = " Directions: ";
-        for(int j = 0; j < this.directions.size(); j++) {
-            if(j == directions.size() -1) {
-                direction += directions.get(j).getCd()+" :" + directions.get(j).getId();
-            }
-            else {
-                direction += directions.get(j).getCd()+" :" + directions.get(j).getId()+ ", ";
-            }
-        }*/
         return "ID: "+ this.id+" Room: "+ this.name+" Items: "+items;
     }
 }

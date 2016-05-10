@@ -18,6 +18,7 @@ public class Map {
         rooms.add(r);
     }
 
+    //finds Room by ID
     public Room getRoom(int id) {
         for (int i = 0; i < rooms.size(); i++) {
             if(rooms.get(i).getId() == id) {
@@ -25,15 +26,6 @@ public class Map {
             }
         }
         return null;
-    }
-
-    public boolean hasRoom(int id) {
-        for (int i = 0; i < rooms.size(); i++) {
-            if(rooms.get(i).getId() == id) {
-                return true;
-            }
-        }
-        return false;
     }
 
     public void removeRoom(int id) {
