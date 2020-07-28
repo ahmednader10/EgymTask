@@ -9,4 +9,3 @@ all the desired objects from the rooms.
 
 To run the application you have to clone the repository and just run the main method 
 in InputOutput.java class.
-# EgymTask
